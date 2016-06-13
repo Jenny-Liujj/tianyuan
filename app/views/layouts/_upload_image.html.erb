@@ -1,0 +1,66 @@
+<% object_name = form.object.class.name.underscore %>
+
+<div id='uploaded-image-<%= object_name %>' class='upload-image'
+  style='max-width: <%= display_width %>px; max-height: <%= display_height %>px'>
+  <% image = form.object.send(image_attribute_name) %>
+  <% if image.url %>
+    <% begin %>
+      <%= image_tag image.url(:medium), style: 'width: 100%;' %>
+    <% rescue %>
+      <%= image_tag image.url, style: 'width: 100%;' %>
+    <% end %>
+  <% else %>
+    <div style='background-color: gray; width: <%= display_width %>px; height: <%= display_height %>px;'></div>
+  <% end %>
+  <div id='change-shade-<%= object_name %>' class='change-shade'>
+    <div class='vertical-centered-block'>
+      <div class='vertical-centered'>
+        <span style='color: white;'><%= t('action.change') %></span>
+      </div>
+    </div>
+  </div>
+</div>
+<%= form.file_field image_attribute_name, class: 'hide' %>
+
+<div class='modal fade' id='crop-image-modal-<%= object_name %>' tabindex='-1' role='dialog' aria-labelledby='crop-image-modal-<%= object_name %>'>
+  <div class='modal-dialog'>
+    <div class='modal-content horizontal-centered' style='padding: 10px;'>
+      <ul class='vertical-clean-list'>
+        <li><img src='' id='crop-image-modal-img-<%= object_name %>'></li>
+        <li>
+          <ul class='horizontal-clean-list'>
+            <li>
+              <button class='btn btn-success' id='crop-image-submit-<%= object_name %>'>
+                <%= t('action.submit') %>
+              </button>
+            </li>
+            <li>
+              <button class='btn btn-default' id='crop-image-cancel-<%= object_name %>'>
+                <%= t('action.cancel') %>
+              </button>
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<% content_for :javascripts do %>
+  <script>
+    $('#uploaded-image-<%= object_name %>').hoverIntent(function() {
+      $('#change-shade-<%= object_name %>').css('width', $(this).width()).css('height', $(this).height())
+      $('#change-shade-<%= object_name %>').show()
+    }, function() {
+      $('#change-shade-<%= object_name %>').hide()
+    })
+    $('#change-shade-<%= object_name %>').click(function() {
+      $('#<%= object_name %>_<%= image_attribute_name %>').trigger('click')
+    })
+    cropImage({
+      inputSelector: "#<%= object_name %>_<%= image_attribute_name %>",
+      inputName: '<%= object_name %>',
+      aspectRatio: <%= display_width.to_f / display_height %>
+    })
+  </script>
+<% end %>
