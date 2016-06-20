@@ -1,5 +1,9 @@
 source 'https://ruby.taobao.org'
+<<<<<<< HEAD
 #sssssssssssssssssssssssssssssss
+=======
+#ssss
+>>>>>>> 1271fd8b49b35481b86482d28c7b6b52c095a981
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.2.6'
