@@ -1,4 +1,4 @@
-lock '3.4.0'
+lock '3.4.1'
 
 set :application, 'tianyuan'
 set :repo_url, 'https://liu7899@github.com/liu7899/tianyuan.git'

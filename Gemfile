@@ -44,9 +44,9 @@ gem "mini_magick"
 group :development, :test do
   gem 'byebug'
   gem 'quiet_assets'
-  gem 'capistrano', '~> 3.4.0'
+  gem 'capistrano', '~> 3.4.1'
   gem 'capistrano-rails'
-  gem 'capistrano-rbenv'
+  #gem 'capistrano-rbenv'
   gem 'capistrano-bundler'
   gem 'capistrano-scm-copy'
   gem 'capistrano-passenger'
